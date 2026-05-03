@@ -31,6 +31,8 @@ export interface ShiftType {
   requiresNightShift?: boolean; // 夜勤としてカウント・制約に影響
   requiresAke?: boolean;        // 翌日に「明け」を自動付与する（2交代の長時間夜勤のみ）
   sortOrder?: number;
+  minPerMonth?: number;   // スタッフ1人あたり月間最小回数（0=制限なし）
+  maxPerMonth?: number;   // スタッフ1人あたり月間最大回数（0=制限なし）
 }
 
 export interface ShiftEntry {
@@ -68,7 +70,9 @@ export interface ShiftViolation {
     | "unsatisfied"      // 補完不能
     | "under_days_off"   // 最小休日数未満
     | "night_interval"   // 夜勤間隔不足
-    | "skill_mix";       // 夜勤スキルミックス不足
+    | "skill_mix"        // 夜勤スキルミックス不足
+    | "over_shift_type"  // 勤務種別月間上限超過
+    | "under_shift_type"; // 勤務種別月間下限未満
   date?: string;
   staffId?: string;
   message: string;

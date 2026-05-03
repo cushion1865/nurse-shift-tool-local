@@ -233,6 +233,34 @@ export function checkShifts(params: {
     }
   }
 
+  // ─── 勤務種別の月間最小・最大回数チェック ─────────────────────
+  for (const st of shiftTypes) {
+    const hasMin = st.minPerMonth != null && st.minPerMonth > 0;
+    const hasMax = st.maxPerMonth != null && st.maxPerMonth > 0;
+    if (!hasMin && !hasMax) continue;
+
+    for (const staff of staffs) {
+      const count = entries.filter(
+        (e) => e.staffId === staff.id && e.shiftTypeId === st.id
+      ).length;
+
+      if (hasMax && count > st.maxPerMonth!) {
+        violations.push({
+          type: "over_shift_type",
+          staffId: staff.id,
+          message: `${staff.name}: 「${st.name}」が月${count}回（上限${st.maxPerMonth}回）`,
+        });
+      }
+      if (hasMin && count < st.minPerMonth!) {
+        violations.push({
+          type: "under_shift_type",
+          staffId: staff.id,
+          message: `${staff.name}: 「${st.name}」が月${count}回（最低${st.minPerMonth}回必要）`,
+        });
+      }
+    }
+  }
+
   // ─── スキルミックスチェック ───────────────────────────────
   // 夜勤に中堅（Lv.2）以上のスタッフが1名以上いるか確認
   const staffMap = new Map(staffs.map((s) => [s.id, s]));
