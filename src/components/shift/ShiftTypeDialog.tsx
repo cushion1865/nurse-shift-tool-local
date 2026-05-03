@@ -45,6 +45,8 @@ const DEFAULT_FORM: FormData = {
   requiresNightShift: false,
   requiresAke: false,
   sortOrder: 0,
+  minPerMonth: 0,
+  maxPerMonth: 0,
 };
 
 export function ShiftTypeDialog({
@@ -69,6 +71,8 @@ export function ShiftTypeDialog({
               requiresNightShift: shiftType.requiresNightShift ?? false,
               requiresAke: shiftType.requiresAke ?? false,
               sortOrder: shiftType.sortOrder,
+              minPerMonth: shiftType.minPerMonth ?? 0,
+              maxPerMonth: shiftType.maxPerMonth ?? 0,
             }
           : { ...DEFAULT_FORM, sortOrder: nextSortOrder }
       );
@@ -177,6 +181,38 @@ export function ShiftTypeDialog({
                 setForm({ ...form, requiredCount: Number(e.target.value) })
               }
             />
+          </div>
+
+          {/* 月間回数制限 */}
+          <div className="grid grid-cols-2 gap-3">
+            <div className="space-y-1">
+              <Label htmlFor="minPerMonth">月間最小回数</Label>
+              <Input
+                id="minPerMonth"
+                type="number"
+                min={0}
+                value={form.minPerMonth ?? 0}
+                onChange={(e) =>
+                  setForm({ ...form, minPerMonth: Number(e.target.value) })
+                }
+                placeholder="0=制限なし"
+              />
+              <p className="text-xs text-gray-400">0=制限なし</p>
+            </div>
+            <div className="space-y-1">
+              <Label htmlFor="maxPerMonth">月間最大回数</Label>
+              <Input
+                id="maxPerMonth"
+                type="number"
+                min={0}
+                value={form.maxPerMonth ?? 0}
+                onChange={(e) =>
+                  setForm({ ...form, maxPerMonth: Number(e.target.value) })
+                }
+                placeholder="0=制限なし"
+              />
+              <p className="text-xs text-gray-400">0=制限なし</p>
+            </div>
           </div>
 
           {/* 夜勤フラグ */}

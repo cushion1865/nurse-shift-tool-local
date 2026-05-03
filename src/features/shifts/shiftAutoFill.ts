@@ -123,6 +123,16 @@ export function autoFill(params: {
     return n;
   }
 
+  // 月のある勤務種別の割当数
+  function shiftTypeCount(staffId: string, shiftTypeId: string): number {
+    let n = 0;
+    for (const [k, e] of liveMap) {
+      if (!k.startsWith(`${staffId}:`)) continue;
+      if (e.shiftTypeId === shiftTypeId) n++;
+    }
+    return n;
+  }
+
   function isEligible(
     staff: Staff,
     dateStr: string,
@@ -166,6 +176,11 @@ export function autoFill(params: {
       nightShifts(staff.id) >= staff.maxNightShiftsPerMonth
     )
       return false;
+
+    // 勤務種別ごとの月間最大回数
+    if (shiftType.maxPerMonth && shiftType.maxPerMonth > 0) {
+      if (shiftTypeCount(staff.id, shiftType.id) >= shiftType.maxPerMonth) return false;
+    }
 
     // 連勤チェック（割当てると上限超えになる場合は除外）
     if (rules && !isRestType(shiftType)) {
