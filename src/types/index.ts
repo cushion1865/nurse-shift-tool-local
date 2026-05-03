@@ -33,6 +33,7 @@ export interface ShiftType {
   sortOrder?: number;
   minPerMonth?: number;   // スタッフ1人あたり月間最小回数（0=制限なし）
   maxPerMonth?: number;   // スタッフ1人あたり月間最大回数（0=制限なし）
+  minIntervalDays?: number; // 同勤務種別の最小間隔日数（0=制限なし）例:2なら2日空けないと再割当不可
 }
 
 export interface ShiftEntry {
@@ -71,8 +72,9 @@ export interface ShiftViolation {
     | "under_days_off"   // 最小休日数未満
     | "night_interval"   // 夜勤間隔不足
     | "skill_mix"        // 夜勤スキルミックス不足
-    | "over_shift_type"  // 勤務種別月間上限超過
-    | "under_shift_type"; // 勤務種別月間下限未満
+    | "over_shift_type"    // 勤務種別月間上限超過
+    | "under_shift_type"   // 勤務種別月間下限未満
+    | "shift_type_interval"; // 勤務種別間隔不足
   date?: string;
   staffId?: string;
   message: string;

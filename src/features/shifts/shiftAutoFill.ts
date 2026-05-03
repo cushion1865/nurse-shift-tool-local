@@ -182,6 +182,15 @@ export function autoFill(params: {
       if (shiftTypeCount(staff.id, shiftType.id) >= shiftType.maxPerMonth) return false;
     }
 
+    // 同勤務種別の最小間隔チェック
+    if (shiftType.minIntervalDays && shiftType.minIntervalDays > 0) {
+      for (let i = 1; i <= shiftType.minIntervalDays; i++) {
+        const prevDay = addDays(dateStr, -i);
+        const prevEntry = liveMap.get(`${staff.id}:${prevDay}`);
+        if (prevEntry?.shiftTypeId === shiftType.id) return false;
+      }
+    }
+
     // 連勤チェック（割当てると上限超えになる場合は除外）
     if (rules && !isRestType(shiftType)) {
       const before = consecutiveBefore(staff.id, dateStr, liveMap, stMap);
