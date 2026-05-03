@@ -1,6 +1,6 @@
 @echo off
-echo 看護師勤務表ツール を起動します...
-cd /d "%~dp0"
+cmd /k "cd /d "%~dp0" && npm run dev"
+exit
 
 echo ---- 現在のフォルダ: %cd% ----
 
