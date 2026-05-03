@@ -47,6 +47,7 @@ const DEFAULT_FORM: FormData = {
   sortOrder: 0,
   minPerMonth: 0,
   maxPerMonth: 0,
+  minIntervalDays: 0,
 };
 
 export function ShiftTypeDialog({
@@ -73,6 +74,7 @@ export function ShiftTypeDialog({
               sortOrder: shiftType.sortOrder,
               minPerMonth: shiftType.minPerMonth ?? 0,
               maxPerMonth: shiftType.maxPerMonth ?? 0,
+              minIntervalDays: shiftType.minIntervalDays ?? 0,
             }
           : { ...DEFAULT_FORM, sortOrder: nextSortOrder }
       );
@@ -213,6 +215,23 @@ export function ShiftTypeDialog({
               />
               <p className="text-xs text-gray-400">0=制限なし</p>
             </div>
+          </div>
+
+          {/* 同勤務種別の間隔 */}
+          <div className="space-y-1">
+            <Label htmlFor="minIntervalDays">同勤務後の最小間隔（日数）</Label>
+            <Input
+              id="minIntervalDays"
+              type="number"
+              min={0}
+              value={form.minIntervalDays ?? 0}
+              onChange={(e) =>
+                setForm({ ...form, minIntervalDays: Number(e.target.value) })
+              }
+            />
+            <p className="text-xs text-gray-400">
+              0=制限なし。例: 2 → この勤務の翌日から2日空けないと再割当不可
+            </p>
           </div>
 
           {/* 夜勤フラグ */}

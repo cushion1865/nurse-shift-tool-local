@@ -261,6 +261,31 @@ export function checkShifts(params: {
     }
   }
 
+  // ─── 勤務種別の最小間隔チェック ──────────────────────────────
+  {
+    const dayStrs = days.map(formatDate);
+    for (const st of shiftTypes) {
+      if (!st.minIntervalDays || st.minIntervalDays <= 0) continue;
+      for (const staff of staffs) {
+        let lastIdx = -1;
+        for (let i = 0; i < dayStrs.length; i++) {
+          const entry = entryMap.get(`${staff.id}:${dayStrs[i]}`);
+          if (entry?.shiftTypeId === st.id) {
+            if (lastIdx >= 0 && i - lastIdx <= st.minIntervalDays) {
+              violations.push({
+                type: "shift_type_interval",
+                staffId: staff.id,
+                date: dayStrs[i],
+                message: `${staff.name}: 「${st.name}」の間隔不足（${shortDate(dayStrs[lastIdx])}→${shortDate(dayStrs[i])}, ${i - lastIdx - 1}日空き / 最低${st.minIntervalDays}日必要）`,
+              });
+            }
+            lastIdx = i;
+          }
+        }
+      }
+    }
+  }
+
   // ─── スキルミックスチェック ───────────────────────────────
   // 夜勤に中堅（Lv.2）以上のスタッフが1名以上いるか確認
   const staffMap = new Map(staffs.map((s) => [s.id, s]));
