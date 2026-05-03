@@ -1,0 +1,12 @@
+[
+  {"id":"st-nikkin","name":"日勤","symbol":"日","color":"#3b82f6","requiredCount":3,"requiresNightShift":false,"requiresAke":false,"sortOrder":1},
+  {"id":"st-yakin","name":"夜勤","symbol":"夜","color":"#8b5cf6","requiredCount":2,"requiresNightShift":true,"requiresAke":true,"sortOrder":2},
+  {"id":"st-ake","name":"明け","symbol":"明","color":"#a78bfa","requiredCount":0,"requiresNightShift":false,"requiresAke":false,"sortOrder":3},
+  {"id":"st-junyakin","name":"準夜勤","symbol":"準","color":"#6366f1","requiredCount":2,"requiresNightShift":true,"requiresAke":false,"sortOrder":4},
+  {"id":"st-shinyakin","name":"深夜勤","symbol":"深","color":"#4f46e5","requiredCount":2,"requiresNightShift":true,"requiresAke":false,"sortOrder":5},
+  {"id":"st-hayade","name":"早出","symbol":"早","color":"#0ea5e9","requiredCount":0,"requiresNightShift":false,"requiresAke":false,"sortOrder":6},
+  {"id":"st-osoban","name":"遅番","symbol":"遅","color":"#f97316","requiredCount":0,"requiresNightShift":false,"requiresAke":false,"sortOrder":7},
+  {"id":"st-yasumi","name":"休み","symbol":"休","color":"#6b7280","requiredCount":0,"requiresNightShift":false,"requiresAke":false,"sortOrder":8},
+  {"id":"st-yukyu","name":"有休","symbol":"有","color":"#10b981","requiredCount":0,"requiresNightShift":false,"requiresAke":false,"sortOrder":9},
+  {"id":"st-kenshu","name":"研修","symbol":"研","color":"#f59e0b","requiredCount":0,"requiresNightShift":false,"requiresAke":false,"sortOrder":10}
+]
