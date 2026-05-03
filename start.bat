@@ -7,6 +7,13 @@ if not exist "node_modules" (
   call npm install
 )
 
+echo 既存のサーバーをクリーンアップ中...
+if exist ".next\dev\lock" del /f ".next\dev\lock" >nul 2>&1
+for /f "tokens=5" %%a in ('netstat -ano ^| findstr ":3000 " 2^>nul') do (
+  taskkill /PID %%a /F >nul 2>&1
+)
+timeout /t 1 /nobreak >nul
+
 echo サーバーが起動したら自動でブラウザが開きます。
 echo このウィンドウは閉じないでください。
 echo.
