@@ -127,31 +127,25 @@ export default function ShiftTypesPage() {
                 )}
               </div>
 
-              {/* アクション（共有テンプレートは編集不可） */}
+              {/* アクション */}
               <div className="flex gap-1 shrink-0">
-                {st.userId !== null ? (
-                  <>
-                    <Button
-                      size="icon"
-                      variant="ghost"
-                      onClick={() => openEditDialog(st)}
-                      aria-label="編集"
-                    >
-                      <Pencil className="w-4 h-4" />
-                    </Button>
-                    <Button
-                      size="icon"
-                      variant="ghost"
-                      onClick={() => setDeleteTarget(st)}
-                      aria-label="削除"
-                      className="text-red-500 hover:text-red-700"
-                    >
-                      <Trash2 className="w-4 h-4" />
-                    </Button>
-                  </>
-                ) : (
-                  <span className="text-xs text-gray-400 px-2">共有</span>
-                )}
+                <Button
+                  size="icon"
+                  variant="ghost"
+                  onClick={() => openEditDialog(st)}
+                  aria-label="編集"
+                >
+                  <Pencil className="w-4 h-4" />
+                </Button>
+                <Button
+                  size="icon"
+                  variant="ghost"
+                  onClick={() => setDeleteTarget(st)}
+                  aria-label="削除"
+                  className="text-red-500 hover:text-red-700"
+                >
+                  <Trash2 className="w-4 h-4" />
+                </Button>
               </div>
             </div>
           ))}
