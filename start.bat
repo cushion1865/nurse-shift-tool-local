@@ -7,11 +7,10 @@ if not exist "node_modules" (
   call npm install
 )
 
-echo サーバーを起動中...
-start "nurse-shift-server" cmd /k "npm run dev"
+echo サーバーが起動したら自動でブラウザが開きます。
+echo このウィンドウは閉じないでください。
+echo.
 
-echo サーバーの起動を待っています（初回は1〜2分かかることがあります）...
-powershell -NoProfile -Command "$i=0; Write-Host '' -NoNewline; while($true){ Start-Sleep -Seconds 2; $i+=2; Write-Host ('.' ) -NoNewline; try{ $r=Invoke-WebRequest -Uri 'http://localhost:3000' -UseBasicParsing -TimeoutSec 2 -ErrorAction Stop; break }catch{ if($i -ge 180){ Write-Host ''; Write-Host 'タイムアウト。サーバーウィンドウを確認してください。'; exit 1 } } }; Write-Host ''; Write-Host '起動完了！'"
+start /b powershell -NoProfile -WindowStyle Hidden -Command "while($true){ Start-Sleep -Seconds 3; try{ Invoke-WebRequest -Uri 'http://localhost:3000' -UseBasicParsing -TimeoutSec 2 -ErrorAction Stop | Out-Null; Start-Process 'http://localhost:3000/shifts'; break }catch{} }"
 
-echo ブラウザを開きます...
-start "" http://localhost:3000/shifts
+npm run dev
