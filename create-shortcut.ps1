@@ -1,5 +1,28 @@
-$ProjectDir = $PSScriptRoot
+param([string]$ProjectDir = "")
+
+# 引数がなければ $PSScriptRoot、それも空なら実行ファイルの場所を使う
+if (-not $ProjectDir) {
+    $ProjectDir = $PSScriptRoot
+}
+if (-not $ProjectDir) {
+    $ProjectDir = Split-Path -Parent $MyInvocation.MyCommand.Path
+}
+if (-not $ProjectDir) {
+    Write-Host "ERROR: Could not detect project folder." -ForegroundColor Red
+    Read-Host "Press Enter to close"
+    exit 1
+}
+
+$ProjectDir = $ProjectDir.TrimEnd('\')
 $StartScript = Join-Path $ProjectDir 'start.ps1'
+
+Write-Host "Project folder: $ProjectDir" -ForegroundColor Cyan
+
+if (-not (Test-Path $StartScript)) {
+    Write-Host "ERROR: start.ps1 not found in: $ProjectDir" -ForegroundColor Red
+    Read-Host "Press Enter to close"
+    exit 1
+}
 
 $Desktop = [System.Environment]::GetFolderPath('Desktop')
 $ShortcutPath = Join-Path $Desktop 'NurseShift.lnk'
