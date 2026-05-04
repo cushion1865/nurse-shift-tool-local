@@ -1,4 +1,4 @@
-$ProjectDir = "C:\Users\sotao\projects\shift-manager\nurse-shift-tool-local"
+$ProjectDir = $PSScriptRoot
 Set-Location $ProjectDir
 
 Write-Host "Starting Nurse Shift Tool..." -ForegroundColor Cyan
