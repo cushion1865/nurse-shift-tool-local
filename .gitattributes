@@ -1,5 +1,6 @@
-# Windows バッチファイルは必ず CRLF（Windows改行）で保存
+# Windows で実行するファイルは必ず CRLF で保存
 *.bat text eol=crlf
+*.ps1 text eol=crlf
 
 # その他のテキストファイルは自動変換
 * text=auto
