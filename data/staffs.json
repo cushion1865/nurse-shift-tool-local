@@ -1,1 +1,19 @@
-[]
+[
+  {
+    "name": "及川颯太",
+    "skillLevel": 2,
+    "canNightShift": true,
+    "isFullTime": true,
+    "workableDays": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6
+    ],
+    "shiftTypeWorkableDays": {},
+    "id": "9c0855a0-2fd3-4752-ba44-922652e0b5ca"
+  }
+]

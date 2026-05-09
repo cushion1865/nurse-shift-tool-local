@@ -12,7 +12,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Checkbox } from "@/components/ui/checkbox";
-import type { Staff, ShiftType } from "@/types";
+import type { Staff, ShiftType, Skill } from "@/types";
 
 const DAY_LABELS = ["日", "月", "火", "水", "木", "金", "土"];
 const REST_SYMBOLS = new Set(["休", "有", "明"]);
@@ -21,6 +21,7 @@ type Props = {
   open: boolean;
   staff: Staff | null; // null = 新規追加
   shiftTypes: ShiftType[];
+  skills?: Skill[];
   onClose: () => void;
   onSave: (staff: Omit<Staff, "id">) => Promise<void>;
 };
@@ -41,10 +42,11 @@ const DEFAULT_FORM: Omit<Staff, "id"> = {
   maxNightShiftsPerMonth: undefined,
   workableDays: [0, 1, 2, 3, 4, 5, 6],
   shiftTypeWorkableDays: {},
+  skillIds: [],
   note: "",
 };
 
-export function StaffDialog({ open, staff, shiftTypes, onClose, onSave }: Props) {
+export function StaffDialog({ open, staff, shiftTypes, skills = [], onClose, onSave }: Props) {
   const [form, setForm] = useState<Omit<Staff, "id">>(DEFAULT_FORM);
   const [saving, setSaving] = useState(false);
 
@@ -62,6 +64,7 @@ export function StaffDialog({ open, staff, shiftTypes, onClose, onSave }: Props)
               maxNightShiftsPerMonth: staff.maxNightShiftsPerMonth,
               workableDays: staff.workableDays ?? [0, 1, 2, 3, 4, 5, 6],
               shiftTypeWorkableDays: staff.shiftTypeWorkableDays ?? {},
+              skillIds: staff.skillIds ?? [],
               note: staff.note ?? "",
             }
           : DEFAULT_FORM
@@ -331,6 +334,39 @@ export function StaffDialog({ open, staff, shiftTypes, onClose, onSave }: Props)
                         ))}
                       </div>
                     </div>
+                  );
+                })}
+              </div>
+            </div>
+          )}
+
+          {/* 技能 */}
+          {skills.length > 0 && (
+            <div className="space-y-2">
+              <Label>保有技能</Label>
+              <div className="flex flex-wrap gap-2">
+                {skills.map((skill) => {
+                  const has = (form.skillIds ?? []).includes(skill.id);
+                  return (
+                    <button
+                      key={skill.id}
+                      type="button"
+                      onClick={() =>
+                        setForm((f) => ({
+                          ...f,
+                          skillIds: has
+                            ? (f.skillIds ?? []).filter((id) => id !== skill.id)
+                            : [...(f.skillIds ?? []), skill.id],
+                        }))
+                      }
+                      className={`px-3 py-1 rounded-full text-xs font-medium border transition-colors ${
+                        has
+                          ? "bg-blue-500 text-white border-blue-500"
+                          : "bg-white text-gray-600 border-gray-300 hover:border-gray-500"
+                      }`}
+                    >
+                      {skill.name}
+                    </button>
                   );
                 })}
               </div>

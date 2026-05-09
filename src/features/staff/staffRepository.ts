@@ -12,6 +12,7 @@ function toStaff(row: Record<string, unknown>): Staff {
     maxNightShiftsPerMonth: (row.maxNightShiftsPerMonth as number) ?? undefined,
     workableDays: (row.workableDays as number[]) ?? [0, 1, 2, 3, 4, 5, 6],
     shiftTypeWorkableDays: (row.shiftTypeWorkableDays as Record<string, number[]>) ?? undefined,
+    skillIds: (row.skillIds as string[]) ?? [],
     note: (row.note as string) ?? undefined,
   };
 }

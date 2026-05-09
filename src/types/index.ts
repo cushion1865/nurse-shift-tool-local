@@ -7,6 +7,13 @@ export type ShiftCellStatus = "fixed" | "preferred" | "flexible";
 // 勤務の入力元
 export type ShiftSource = "manual" | "auto" | "request";
 
+export interface Skill {
+  id: string;
+  name: string;           // 例: "救急対応"
+  requiredPerDay: number; // 1日あたり必要人数（0=制限なし）
+  note?: string;
+}
+
 export interface Staff {
   id: string;
   name: string;
@@ -18,6 +25,7 @@ export interface Staff {
   maxNightShiftsPerMonth?: number;
   workableDays?: number[]; // 0=日, 1=月, ..., 6=土
   shiftTypeWorkableDays?: Record<string, number[]>; // shiftTypeId → 勤務可能曜日（未設定時は workableDays を使用）
+  skillIds?: string[];  // 保有技能のIDリスト
   note?: string;
 }
 

@@ -18,6 +18,7 @@ const NAV_ITEMS = [
   { href: "/shifts", label: "勤務表" },
   { href: "/staff", label: "スタッフ" },
   { href: "/shift-types", label: "勤務種別" },
+  { href: "/skills", label: "技能設定" },
   { href: "/rules", label: "ルール設定" },
 ];
 

@@ -44,3 +44,7 @@ next-env.d.ts
 .mcp.json
 
 .vercel
+
+# Internal tool configs
+.claude/
+.letta/
