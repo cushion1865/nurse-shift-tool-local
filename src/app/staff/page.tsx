@@ -11,13 +11,15 @@ import {
   deleteStaff,
 } from "@/features/staff/staffRepository";
 import { fetchShiftTypes } from "@/features/shift-types/shiftTypeRepository";
-import type { Staff, ShiftType } from "@/types";
+import { fetchSkills } from "@/features/skills/skillRepository";
+import type { Staff, ShiftType, Skill } from "@/types";
 import { Loader2, UserPlus, Users } from "lucide-react";
 import { toast } from "sonner";
 
 export default function StaffPage() {
   const [staffs, setStaffs] = useState<Staff[]>([]);
   const [shiftTypes, setShiftTypes] = useState<ShiftType[]>([]);
+  const [skills, setSkills] = useState<Skill[]>([]);
   const [loading, setLoading] = useState(true);
 
   // ダイアログ状態
@@ -31,9 +33,14 @@ export default function StaffPage() {
   const load = useCallback(async () => {
     setLoading(true);
     try {
-      const [staffList, typeList] = await Promise.all([fetchStaffs(), fetchShiftTypes()]);
+      const [staffList, typeList, skillList] = await Promise.all([
+        fetchStaffs(),
+        fetchShiftTypes(),
+        fetchSkills(),
+      ]);
       setStaffs(staffList);
       setShiftTypes(typeList);
+      setSkills(skillList);
     } catch {
       toast.error("スタッフの読み込みに失敗しました");
     } finally {
@@ -122,6 +129,7 @@ export default function StaffPage() {
         open={dialogOpen}
         staff={editTarget}
         shiftTypes={shiftTypes}
+        skills={skills}
         onClose={() => setDialogOpen(false)}
         onSave={handleSave}
       />
