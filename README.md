@@ -1,36 +1,72 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 看護師向け 勤務表作成ツール（ローカル版）
 
-## Getting Started
+病棟の勤務表（シフト表）を作るための Web アプリです。
+スタッフの条件と勤務ルールを登録しておくと、勤務表を自動で埋め、ルール違反や不公平をチェックできます。
 
-First, run the development server:
+**ログイン不要で、手元のパソコンの中だけで動きます。**
+スタッフの名前や勤務の情報は個人情報なので、インターネット上のサーバーには送らず、このフォルダの中（`data/`）にだけ保存する形にしています。
+
+## 主な機能
+
+### 勤務表
+- 月ごとの勤務表を表の形で表示・編集（セルをクリックして勤務を選ぶ）
+- **自動割り当て**: 空いているセルを、登録したルールを守りながら自動で埋める
+  - 勤務の回数がスタッフ間でかたよらないよう、勤務数の少ない人から順に割り当て
+  - 夜勤は技能レベルの高い人を優先
+  - 夜勤の翌日には「明け」を自動で入れる
+  - 手で入れた勤務や固定した勤務はそのまま残す
+- **再調整**: 期間（◯日〜◯日）とスタッフを選んで、その部分だけ割り当てし直す
+- **ルール違反のチェック**: 次のような問題を一覧で表示
+  - その日の勤務に必要な人数が足りない
+  - 連続勤務が上限を超えている（前の月からの続きも計算）
+  - 夜勤の回数が多すぎる・夜勤の間隔が短すぎる
+  - 休みの日数が足りない
+  - 勤務できない日・曜日に勤務が入っている
+  - 勤務種別ごとの月の回数が多すぎる・少なすぎる、同じ勤務の間隔が短すぎる
+- **公平さの確認**: スタッフごとの勤務数・夜勤数などを並べて、かたよりを確認
+- 勤務できない日（希望休など）の登録
+- **Excel 出力**: 完成した勤務表を `.xlsx` で保存
+
+### 設定
+- **スタッフ管理**: 技能レベル、夜勤ができるか、常勤かどうか、勤務できる曜日（勤務種別ごとにも設定可）
+- **勤務種別**: 日勤・夜勤・休みなどの種類と、1日に必要な人数
+- **技能設定**: スタッフに付ける技能の種類
+- **ルール設定**
+  - 全体ルール: 連続勤務の上限、月の休みの日数、夜勤の間隔など
+  - 勤務種別ルール: 月の最小・最大回数、同じ勤務の最小間隔
+  - スタッフ別ルール: 人ごとの上限など
+
+## 使い方（Windows）
+
+1. [Node.js](https://nodejs.org) をインストールする
+2. このフォルダの `start.bat` をダブルクリックする
+   - 初回は必要なものを自動でインストールします
+   - 準備ができるとブラウザで勤務表ツールが開きます
+3. デスクトップにショートカットを作りたいときは `create-shortcut.bat` をダブルクリックする
+
+コマンドで起動する場合:
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+ブラウザで http://localhost:3000 を開きます。
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## データの保存場所
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+入力した内容は `data/` フォルダの JSON ファイルに保存されます（スタッフ、勤務種別、技能、ルール、勤務表）。
+外部のサーバーやクラウドには送りません。バックアップしたいときは `data/` フォルダをコピーしてください。
 
-## Learn More
+## 開発の経緯
 
-To learn more about Next.js, take a look at the following resources:
+実際に勤務表を作る人に条件を聞き取りながら、必要な機能を追加してきました（勤務種別ごとの月の回数、同じ勤務の間隔、技能の設定など）。
+最初はログインして使うクラウド版で作っていましたが、スタッフの個人情報を扱うため、ログイン不要で手元のパソコンだけで完結するこのローカル版を作りました。
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## 使っている技術
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- Next.js 16 / React 19 / TypeScript
+- Tailwind CSS、shadcn/ui
+- React Hook Form、Zod
+- SheetJS（Excel 出力）
+- データ保存: ローカルの JSON ファイル（Node.js の fs）
