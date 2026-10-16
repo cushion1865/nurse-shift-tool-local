@@ -1,0 +1,126 @@
+[
+  {
+    "id": "sample-staff-1",
+    "name": "サンプル看護師A",
+    "skillLevel": 3,
+    "canNightShift": true,
+    "isFullTime": true,
+    "workableDays": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6
+    ],
+    "shiftTypeWorkableDays": {},
+    "skillIds": [
+      "sk-leader"
+    ]
+  },
+  {
+    "id": "sample-staff-2",
+    "name": "サンプル看護師B",
+    "skillLevel": 3,
+    "canNightShift": true,
+    "isFullTime": true,
+    "workableDays": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6
+    ],
+    "shiftTypeWorkableDays": {},
+    "skillIds": [
+      "sk-leader"
+    ]
+  },
+  {
+    "id": "sample-staff-3",
+    "name": "サンプル看護師C",
+    "skillLevel": 2,
+    "canNightShift": true,
+    "isFullTime": true,
+    "workableDays": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6
+    ],
+    "shiftTypeWorkableDays": {},
+    "skillIds": []
+  },
+  {
+    "id": "sample-staff-4",
+    "name": "サンプル看護師D",
+    "skillLevel": 2,
+    "canNightShift": true,
+    "isFullTime": true,
+    "workableDays": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6
+    ],
+    "shiftTypeWorkableDays": {},
+    "skillIds": []
+  },
+  {
+    "id": "sample-staff-5",
+    "name": "サンプル看護師E",
+    "skillLevel": 2,
+    "canNightShift": false,
+    "isFullTime": true,
+    "workableDays": [
+      1,
+      2,
+      3,
+      4,
+      5
+    ],
+    "shiftTypeWorkableDays": {},
+    "skillIds": []
+  },
+  {
+    "id": "sample-staff-6",
+    "name": "サンプル看護師F",
+    "skillLevel": 1,
+    "canNightShift": true,
+    "isFullTime": true,
+    "workableDays": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6
+    ],
+    "shiftTypeWorkableDays": {},
+    "skillIds": []
+  },
+  {
+    "id": "sample-staff-7",
+    "name": "サンプル看護師G",
+    "skillLevel": 1,
+    "canNightShift": false,
+    "isFullTime": false,
+    "workableDays": [
+      1,
+      3,
+      5
+    ],
+    "shiftTypeWorkableDays": {},
+    "skillIds": []
+  }
+]

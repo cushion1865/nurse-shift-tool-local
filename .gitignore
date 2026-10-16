@@ -48,3 +48,6 @@ next-env.d.ts
 # Internal tool configs
 .claude/
 .letta/
+
+# 個人情報（スタッフ名・勤務表）を含むので Git に入れない。見本は data-sample/
+/data/

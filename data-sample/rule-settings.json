@@ -1,0 +1,5 @@
+{
+  "maxConsecutiveDays": 5,
+  "minDaysOff": 8,
+  "nightShiftInterval": 1
+}
